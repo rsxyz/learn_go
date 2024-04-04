@@ -1,0 +1,13 @@
+# Ignore files and directories not needed in the Docker image
+
+# Go binary files
+*.exe
+*.out
+*.test
+
+# Dependency directories
+vendor/
+
+# Docker-related files
+.dockerignore
+Dockerfile
