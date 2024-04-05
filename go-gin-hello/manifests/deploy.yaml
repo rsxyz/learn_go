@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-gin-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-gin
+  template:
+    metadata:
+      labels:
+        app: go-gin
+    spec:
+      containers:
+      - name: go-gin-container
+        image: rsxyz123/go-gin-hello:latest
+        ports:
+        - containerPort: 443
+        env:
+        - name: MESSAGE
+          value: "Good Evening"
+        - name: COLOR
+          value: "red"
+        - name: USE_TLS
+          value: "true"
+        - name: TLS_CERT
+          value: "/certificates/tls.crt"
+        - name: TLS_KEY
+          value: "/certificates/tls.key"
+        volumeMounts:
+        - name: tls-volume
+          mountPath: /certificates
+      volumes:
+      - name: tls-volume
+        secret:
+          secretName: tls-secret
